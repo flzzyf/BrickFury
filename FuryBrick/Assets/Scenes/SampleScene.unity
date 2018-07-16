@@ -572,8 +572,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 584eb73d47a948d42bf4790e604a5063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickPrefab: {fileID: 0}
-  brickSize: {x: 1.2, y: 1.79}
+  brickPrefab: {fileID: 1269954335219352, guid: c86f9d271cfba3840826e7b4383034b8,
+    type: 2}
+  brickSize: {x: 1.2, y: 0.8333333}
 --- !u!1 &1702829806
 GameObject:
   m_ObjectHideFlags: 0

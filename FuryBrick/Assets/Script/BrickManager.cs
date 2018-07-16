@@ -37,6 +37,7 @@ public class BrickManager : Singleton<BrickManager>
         }
 	}
 
+    //显示方块所占空间
     //private void OnDrawGizmos()
     //{
     //    Init();
@@ -94,11 +95,12 @@ public class BrickManager : Singleton<BrickManager>
     }
 
     //根据数组生成方块行
-    void GenerateBrickLine(int[] _line)
+    void GenerateBrickLine(row _row)
     {
-        for (int i = 0; i < _line.Length; i++)
+        for (int i = 0; i < _row.types.Length; i++)
         {
-            StartCoroutine(GenerateBrick(_line[i]));
+            if(_row.types[i] == 1)
+                StartCoroutine(GenerateBrick(i));
         }
     }
 
@@ -106,12 +108,14 @@ public class BrickManager : Singleton<BrickManager>
     //0空白，1砖块，2金币砖块，3特殊，4坚固砖块
     void GenerateBrickRandom()
     {
-        int index = Random.Range(0, 4);
-        int[] line = { index, (index + 1) % 4, (index + 2) % 4 };
+        int spaceIndex = Random.Range(0, 4);
+        int[] line = { 1, 1, 1, 1 };
+        line[spaceIndex] = 0;
+        //行数据加入链表
         row newRow = new row(line);
         rowSpace.AddLast(newRow);
 
-        GenerateBrickLine(line);
+        GenerateBrickLine(newRow);
     }
 
     class row

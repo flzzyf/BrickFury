@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour 
+public class GameManager : Singleton<GameManager>
 {
-    public Vector2 cubeSize;
-    //public float cubeInterval;
 
     void Start () 
 	{
@@ -19,27 +17,12 @@ public class GameManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        float cubeInterval = (GetWorldScrrenSize().x - cubeSize.x * 4) / 4;
-        //左边源点
-        float x = GetWorldScrrenSize().x / 2 * -1;
-        float y = 0;
-        //方块1
-        x += cubeInterval / 2;
-        for (int i = 0; i < 4; i++)
-        {
-            x += cubeSize.x / 2;
-
-            Gizmos.DrawCube(new Vector2(x, y), cubeSize);
-            x += cubeSize.x / 2;
-
-            x += cubeInterval;
-
-        }
+        
 
     }
 
     //获取实际游戏世界屏幕尺寸
-    Vector2 GetWorldScrrenSize()
+    public static Vector2 GetWorldScrrenSize()
     {
         float leftBorder;
         float rightBorder;

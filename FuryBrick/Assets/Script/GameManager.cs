@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [HideInInspector]
+    public bool gaming = false;
 
     void Start () 
 	{
@@ -15,10 +17,9 @@ public class GameManager : Singleton<GameManager>
 		
 	}
 
-    private void OnDrawGizmos()
+    void GameStart()
     {
-        
-
+        gaming = true;
     }
 
     //获取实际游戏世界屏幕尺寸

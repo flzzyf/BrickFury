@@ -12,31 +12,43 @@ public class BrickManager : Singleton<BrickManager>
     float[] generateX;
     float destoryY;
 
+    float generateInterval;
+    float generateCD = 0;
+    //一行中空缺的位置序号
+    LinkedList<row> rowSpace = new LinkedList<row>();
+
 	void Start () 
 	{
         Init();
 
-        int[] line = { 0, 1, 2 };
-        GenerateBrick(line);
     }
 	
 	void Update () 
 	{
-		
+		if(generateCD <= 0)
+        {
+            generateCD = generateInterval;
+
+            GenerateBrickRandom();
+        }
+        else
+        {
+            generateCD -= Time.deltaTime;
+        }
 	}
 
-    private void OnDrawGizmos()
-    {
-        Init();
-        for (int j = 0; j < 12; j++)
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                brickSize.y = GameManager.GetWorldScrrenSize().y / 12;
-                Gizmos.DrawCube(new Vector2(generateX[i], generateY - j * (brickSize.y + 0.05f)), brickSize);
-            }
-        }
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Init();
+    //    for (int j = 0; j < 12; j++)
+    //    {
+    //        for (int i = 0; i < 4; i++)
+    //        {
+    //            brickSize.y = GameManager.GetWorldScrrenSize().y / 12;
+    //            Gizmos.DrawCube(new Vector2(generateX[i], generateY - j * (brickSize.y + 0.05f)), brickSize);
+    //        }
+    //    }
+    //}
 
     void Init()
     {
@@ -60,6 +72,9 @@ public class BrickManager : Singleton<BrickManager>
 
         //消失高度
         destoryY = GameManager.GetWorldScrrenSize().y / 2 * -1 - brickSize.y / 2;
+
+        //生成方块时间间隔
+        generateInterval = brickSize.y / fallingSpeed;
     }
 
     IEnumerator GenerateBrick(int _index)
@@ -78,11 +93,42 @@ public class BrickManager : Singleton<BrickManager>
         Destroy(brick);
     }
 
-    void GenerateBrick(int[] _line)
+    //根据数组生成方块行
+    void GenerateBrickLine(int[] _line)
     {
         for (int i = 0; i < _line.Length; i++)
         {
             StartCoroutine(GenerateBrick(_line[i]));
+        }
+    }
+
+    //随机生成三列
+    //0空白，1砖块，2金币砖块，3特殊，4坚固砖块
+    void GenerateBrickRandom()
+    {
+        int index = Random.Range(0, 4);
+        int[] line = { index, (index + 1) % 4, (index + 2) % 4 };
+        row newRow = new row(line);
+        rowSpace.AddLast(newRow);
+
+        GenerateBrickLine(line);
+    }
+
+    class row
+    {
+        public int[] types = new int[4];
+
+        public row(int _type1, int _type2, int _type3, int _type4)
+        {
+            types[0] = _type1;
+            types[1] = _type2;
+            types[2] = _type3;
+            types[3] = _type4;
+        }
+
+        public row(int[] _types)
+        {
+            types = _types;
         }
     }
 }

@@ -4860,7 +4860,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f815554e281316b428a9d699b1f47c75, type: 3}
   m_Color: {r: 0.9176471, g: 0.22352943, b: 0.18431373, a: 1}
   m_FlipX: 0
@@ -5150,6 +5150,7 @@ GameObject:
   - component: {fileID: 1540033325}
   - component: {fileID: 1540033324}
   - component: {fileID: 1540033326}
+  - component: {fileID: 1540033327}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5169,6 +5170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gaming: 0
+  text_hint: {fileID: 1760004556}
 --- !u!4 &1540033325
 Transform:
   m_ObjectHideFlags: 0
@@ -5197,6 +5199,23 @@ MonoBehaviour:
     type: 2}
   brickSize: {x: 1.2, y: 0.8333333}
   fallingSpeed: 0.8
+  redLine: {fileID: 899757104}
+  generateX: []
+  bottomY: 0
+--- !u!114 &1540033327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1540033323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ed0492329f8c44cbe2fb330e5282e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missilePrefab: {fileID: 1269954335219352, guid: f3fa5cd430fa32c418717b6e3154a246,
+    type: 2}
+  speed: 25
 --- !u!1 &1702829806
 GameObject:
   m_ObjectHideFlags: 0

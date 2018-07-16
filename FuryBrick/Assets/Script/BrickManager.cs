@@ -8,23 +8,33 @@ public class BrickManager : Singleton<BrickManager>
     public Vector2 brickSize;
     public float fallingSpeed = 0.8f;
 
+    public GameObject redLine;
+
     float generateY;
-    float[] generateX;
+    [HideInInspector]
+    public float[] generateX;
     float destoryY;
+    [HideInInspector]
+    public float bottomY;
 
     float generateInterval;
     float generateCD = 0;
-    //一行中空缺的位置序号
-    LinkedList<row> rowSpace = new LinkedList<row>();
+    //每行的方块数据
+    public LinkedList<row> rows = new LinkedList<row>();
 
 	void Start () 
 	{
         Init();
-
     }
 	
 	void Update () 
 	{
+        if (!GameManager.Instance().gaming)
+            return;
+
+        //降低底线
+        bottomY -= fallingSpeed * Time.deltaTime;
+
 		if(generateCD <= 0)
         {
             generateCD = generateInterval;
@@ -54,6 +64,7 @@ public class BrickManager : Singleton<BrickManager>
     void Init()
     {
         generateY = GameManager.GetWorldScrrenSize().y / 2 + brickSize.y / 2;
+        bottomY = generateY;
 
         float cubeInterval = (GameManager.GetWorldScrrenSize().x - brickSize.x * 4) / 4;
         //左边源点
@@ -113,12 +124,12 @@ public class BrickManager : Singleton<BrickManager>
         line[spaceIndex] = 0;
         //行数据加入链表
         row newRow = new row(line);
-        rowSpace.AddLast(newRow);
+        rows.AddLast(newRow);
 
         GenerateBrickLine(newRow);
     }
 
-    class row
+    public class row
     {
         public int[] types = new int[4];
 

@@ -1,25 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
     [HideInInspector]
     public bool gaming = false;
 
+    public GameObject text_hint;
+
     void Start () 
 	{
         Debug.Log(GetWorldScrrenSize());
     }
-	
-	void Update () 
-	{
-		
-	}
+
+    void Update()
+    {
+        if (!gaming)
+        {
+            //游戏没开始
+            if (Input.GetMouseButtonDown(0))
+            {
+                GameStart();
+            }
+        }
+        else
+        {
+            //游戏进行中
+            
+        }
+    }
 
     void GameStart()
     {
         gaming = true;
+
+        text_hint.SetActive(false);
+    }
+
+    void GameOver()
+    {
+
+    }
+
+    void GameReset()
+    {
+        text_hint.SetActive(true);
+
     }
 
     //获取实际游戏世界屏幕尺寸

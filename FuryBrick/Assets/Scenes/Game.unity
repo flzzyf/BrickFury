@@ -956,7 +956,7 @@ MonoBehaviour:
   brickPrefab: {fileID: 1269954335219352, guid: c86f9d271cfba3840826e7b4383034b8,
     type: 2}
   brickSize: {x: 1.2, y: 0.8333333}
-  fallingSpeed: 0.8
+  fallingSpeed: 1.3
   redLine: {fileID: 899757104}
   generateX: []
   bottomY: 0
@@ -973,7 +973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 1269954335219352, guid: f3fa5cd430fa32c418717b6e3154a246,
     type: 2}
-  speed: 35
+  speed: 70
   impact_brick: {fileID: 1961664204201400, guid: 0650e397f6af0f141abda177b7586054,
     type: 2}
   impact_missile: {fileID: 1711655998409308, guid: fc36afd3303e05547a91e8fd29533b06,
@@ -994,13 +994,13 @@ MonoBehaviour:
   sounds:
   - name: Shoot
     clip: {fileID: 8300000, guid: e027baa1ec0cebf4eb1c027702e89320, type: 3}
-    volume: 1.63
+    volume: 0.522
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Boom
     clip: {fileID: 8300000, guid: ae9c064cca871fa48ae6946a724280f4, type: 3}
-    volume: 2.06
+    volume: 0.514
     pitch: 1
     loop: 0
     source: {fileID: 0}

@@ -31,7 +31,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
             for (int i = 0; i < pool.size; i++)
             {
                 GameObject obj = Instantiate(pool.prefab);
-                obj.GetComponent<IPooledObject>().objectTag = pool.tag;
+                //obj.GetComponent<IPooledObject>().objectTag = pool.tag;
                 obj.SetActive(false);
                 obj.transform.SetParent(parent.transform);
                 objPool.Enqueue(obj);
@@ -57,7 +57,8 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         obj.transform.position = _pos;
         obj.transform.rotation = _rot;
 
-        obj.GetComponent<IPooledObject>().OnObjectSpawned();
+        if(obj.GetComponent<IPooledObject>() != null)
+            obj.GetComponent<IPooledObject>().OnObjectSpawned();
 
         poolDictionary[_tag].Enqueue(obj);
 

@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
 
     void Start () 
 	{
-        Debug.Log(GetWorldScrrenSize());
+        //Debug.Log(GetWorldScrrenSize());
     }
 
     void Update()

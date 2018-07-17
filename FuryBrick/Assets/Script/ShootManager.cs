@@ -11,6 +11,13 @@ public class ShootManager : Singleton<ShootManager>
     public GameObject impact_missile;
     public GameObject impact_coin;
 
+    GameObject parent_particle;
+
+    void Start()
+    {
+        parent_particle = new GameObject("Parent_Particle");
+    }
+
     void Update()
     {
         if (GameManager.Instance().gaming)
@@ -39,7 +46,8 @@ public class ShootManager : Singleton<ShootManager>
         //创建飞弹
         float launchY = GameManager.GetWorldScrrenSize().y / 2 * -1 - 1;
         Vector2 launchPos = new Vector2(BrickManager.Instance().generateX[_index], launchY);
-        GameObject missile = Instantiate(missilePrefab, launchPos, Quaternion.identity);
+
+        GameObject missile = ObjectPoolManager.Instance().SpawnObject("Missile", launchPos, Quaternion.identity);
         //发射飞弹
         float targetY = BrickManager.Instance().bottomY - BrickManager.Instance().brickSize.y / 2;
         while(missile.transform.position.y < targetY)
@@ -53,8 +61,8 @@ public class ShootManager : Singleton<ShootManager>
         SoundManager.Instance().Play("Boom");
 
         InstantiateParticle(impact_coin, missile.transform.position);
-        //后期替换为对象池
-        Destroy(missile);
+        //回收
+        missile.SetActive(false);
 
 
         //命中空缺
@@ -68,7 +76,7 @@ public class ShootManager : Singleton<ShootManager>
 
     void InstantiateParticle(GameObject _particle, Vector2 _pos)
     {
-        GameObject particle = Instantiate(_particle, _pos, Quaternion.identity);
+        GameObject particle = Instantiate(_particle, _pos, Quaternion.identity, parent_particle.transform);
         float duration = particle.GetComponent<ParticleSystem>().main.duration;
         Destroy(particle, duration);
     }

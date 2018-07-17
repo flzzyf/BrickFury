@@ -1022,7 +1022,7 @@ MonoBehaviour:
   pools:
   - tag: Brick
     prefab: {fileID: 1269954335219352, guid: c86f9d271cfba3840826e7b4383034b8, type: 2}
-    size: 100
+    size: 50
   - tag: Missile
     prefab: {fileID: 1269954335219352, guid: f3fa5cd430fa32c418717b6e3154a246, type: 2}
     size: 10

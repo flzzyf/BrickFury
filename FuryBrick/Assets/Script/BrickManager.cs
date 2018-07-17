@@ -97,7 +97,7 @@ public class BrickManager : Singleton<BrickManager>
         float x = generateX[_index];
         Vector2 pos = new Vector2(x, generateY);
         //生成砖块
-        GameObject brick = Instantiate(brickPrefab, pos, Quaternion.identity);
+        GameObject brick = ObjectPoolManager.Instance().SpawnObject("Brick" , pos, Quaternion.identity);
         brick.transform.localScale = new Vector3(brickSize.x, brickSize.y);
         while(brick.transform.position.y > destoryY)
         {
@@ -105,7 +105,7 @@ public class BrickManager : Singleton<BrickManager>
             yield return null;
         }
         //清除砖块
-        Destroy(brick);
+        brick.SetActive(false);
     }
 
     //根据数组生成方块行

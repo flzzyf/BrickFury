@@ -62,6 +62,7 @@ public class ShootManager : Singleton<ShootManager>
         {
             Debug.Log("命中");
 
+            InstantiateParticle(impact_brick, missile.transform.position);
         }
     }
 

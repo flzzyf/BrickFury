@@ -20,6 +20,7 @@ public class BrickManager : Singleton<BrickManager>
     float generateInterval;
     float generateCD = 0;
     //每行的方块数据
+    [HideInInspector]
     public LinkedList<row> rows = new LinkedList<row>();
 
 	void Start () 

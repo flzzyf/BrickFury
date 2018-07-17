@@ -22,7 +22,6 @@ public class ShootManager : Singleton<ShootManager>
                 float clickX = Input.mousePosition.x;
                 //点击的行号
                 int clickIndex = (int)(clickX / (Screen.width / 4));
-                Debug.Log(clickIndex);
 
                 SoundManager.Instance().Play("Shoot");
 

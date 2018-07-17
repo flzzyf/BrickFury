@@ -7,10 +7,9 @@ public class ShootManager : Singleton<ShootManager>
     public GameObject missilePrefab;
     public float speed = 3;
 
-	void Start () 
-	{
-		
-	}
+    public GameObject impact_brick;
+    public GameObject impact_missile;
+    public GameObject impact_coin;
 
     void Update()
     {
@@ -23,14 +22,19 @@ public class ShootManager : Singleton<ShootManager>
                 //点击的行号
                 int clickIndex = (int)(clickX / (Screen.width / 4));
 
-                SoundManager.Instance().Play("Shoot");
-
-                StartCoroutine(LaunchMissile(clickIndex));
+                Shoot(clickIndex);
             }
         }
     }
 
-    IEnumerator LaunchMissile(int _index)
+    void Shoot(int _index)
+    {
+        SoundManager.Instance().Play("Shoot");
+
+        StartCoroutine(IEShoot(_index));
+    }
+
+    IEnumerator IEShoot(int _index)
     {
         //创建飞弹
         float launchY = GameManager.GetWorldScrrenSize().y / 2 * -1 - 1;
@@ -48,6 +52,10 @@ public class ShootManager : Singleton<ShootManager>
         //命中后
         SoundManager.Instance().Play("Boom");
 
+        InstantiateParticle(impact_coin, missile.transform.position);
+        //后期替换为对象池
+        Destroy(missile);
+
 
         //命中空缺
         if (BrickManager.Instance().rows.First.Value.types[_index] == 0)
@@ -55,5 +63,12 @@ public class ShootManager : Singleton<ShootManager>
             Debug.Log("命中");
 
         }
+    }
+
+    void InstantiateParticle(GameObject _particle, Vector2 _pos)
+    {
+        GameObject particle = Instantiate(_particle, _pos, Quaternion.identity);
+        float duration = particle.GetComponent<ParticleSystem>().main.duration;
+        Destroy(particle, duration);
     }
 }

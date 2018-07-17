@@ -35,7 +35,7 @@ public class BrickManager : Singleton<BrickManager>
         //降低底线
         bottomY -= fallingSpeed * Time.deltaTime;
 
-        redLine.transform.position = new Vector2(0, bottomY + brickSize.y / 6);
+        redLine.transform.position = new Vector2(0, bottomY + brickSize.y / 11);
 
 		if(generateCD <= 0)
         {

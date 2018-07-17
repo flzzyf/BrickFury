@@ -24,6 +24,8 @@ public class ShootManager : Singleton<ShootManager>
                 int clickIndex = (int)(clickX / (Screen.width / 4));
                 Debug.Log(clickIndex);
 
+                SoundManager.Instance().Play("Shoot");
+
                 StartCoroutine(LaunchMissile(clickIndex));
             }
         }
@@ -36,12 +38,16 @@ public class ShootManager : Singleton<ShootManager>
         Vector2 launchPos = new Vector2(BrickManager.Instance().generateX[_index], launchY);
         GameObject missile = Instantiate(missilePrefab, launchPos, Quaternion.identity);
         //发射飞弹
-        float targetY = BrickManager.Instance().bottomY;
+        float targetY = BrickManager.Instance().bottomY - BrickManager.Instance().brickSize.y / 2;
         while(missile.transform.position.y < targetY)
         {
             missile.transform.Translate(speed * Vector2.up * Time.deltaTime);
+            targetY += BrickManager.Instance().fallingSpeed * Time.deltaTime;
             yield return null;
         }
+
+        //命中后
+        SoundManager.Instance().Play("Boom");
 
 
         //命中空缺

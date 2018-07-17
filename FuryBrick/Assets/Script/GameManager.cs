@@ -17,6 +17,11 @@ public class GameManager : Singleton<GameManager>
 
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            SoundManager.Instance().Play("Shoot");
+        }
+
         if (!gaming)
         {
             //游戏没开始
@@ -37,6 +42,9 @@ public class GameManager : Singleton<GameManager>
         gaming = true;
 
         text_hint.SetActive(false);
+
+        SoundManager.Instance().Play("BGM");
+
     }
 
     void GameOver()

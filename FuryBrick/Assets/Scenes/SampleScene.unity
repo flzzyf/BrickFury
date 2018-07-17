@@ -5151,6 +5151,7 @@ GameObject:
   - component: {fileID: 1540033324}
   - component: {fileID: 1540033326}
   - component: {fileID: 1540033327}
+  - component: {fileID: 1540033328}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5215,7 +5216,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missilePrefab: {fileID: 1269954335219352, guid: f3fa5cd430fa32c418717b6e3154a246,
     type: 2}
-  speed: 25
+  speed: 35
+--- !u!114 &1540033328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1540033323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2584713a147f39241bf5e124fa9330cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Shoot
+    clip: {fileID: 8300000, guid: e027baa1ec0cebf4eb1c027702e89320, type: 3}
+    volume: 1.63
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Boom
+    clip: {fileID: 8300000, guid: ae9c064cca871fa48ae6946a724280f4, type: 3}
+    volume: 2.06
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BGM
+    clip: {fileID: 8300000, guid: 6d05728e57e593847b4b59020d034c86, type: 3}
+    volume: 0.37
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!1 &1702829806
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,6 +34,7 @@ public class BrickManager : Singleton<BrickManager>
 
         //降低底线
         bottomY -= fallingSpeed * Time.deltaTime;
+        redLine.transform.position = new Vector2(0, bottomY);
 
 		if(generateCD <= 0)
         {
@@ -64,7 +65,7 @@ public class BrickManager : Singleton<BrickManager>
     void Init()
     {
         generateY = GameManager.GetWorldScrrenSize().y / 2 + brickSize.y / 2;
-        bottomY = generateY;
+        bottomY = generateY - brickSize.y / 2;
 
         float cubeInterval = (GameManager.GetWorldScrrenSize().x - brickSize.x * 4) / 4;
         //左边源点

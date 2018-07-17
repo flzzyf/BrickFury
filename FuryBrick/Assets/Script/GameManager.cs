@@ -51,7 +51,7 @@ public class GameManager : Singleton<GameManager>
 
     void GameOver()
     {
-
+        gaming = false;
     }
 
     void GameReset()

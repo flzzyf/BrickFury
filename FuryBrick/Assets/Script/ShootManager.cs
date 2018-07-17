@@ -11,11 +11,6 @@ public class ShootManager : Singleton<ShootManager>
     public GameObject impact_missile;
     public GameObject impact_coin;
 
-
-    void Start()
-    {
-    }
-
     void Update()
     {
         if (GameManager.Instance().gaming)

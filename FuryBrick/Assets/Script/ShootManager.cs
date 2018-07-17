@@ -11,11 +11,9 @@ public class ShootManager : Singleton<ShootManager>
     public GameObject impact_missile;
     public GameObject impact_coin;
 
-    GameObject parent_particle;
 
     void Start()
     {
-        parent_particle = new GameObject("Parent_Particle");
     }
 
     void Update()
@@ -60,24 +58,18 @@ public class ShootManager : Singleton<ShootManager>
         //命中后
         SoundManager.Instance().Play("Boom");
 
-        InstantiateParticle(impact_coin, missile.transform.position);
+        ParticleManager.Instance().InstantiateParticle("Impact_Missile", missile.transform.position);
         //回收
         missile.SetActive(false);
 
 
         //命中空缺
-        if (BrickManager.Instance().rows.First.Value.types[_index] == 0)
+        if (BrickManager.Instance().rows.Peek().types[_index] == 0)
         {
-            Debug.Log("命中");
+            BrickManager.Instance().ClearFirstRow();
 
-            InstantiateParticle(impact_brick, missile.transform.position);
         }
     }
 
-    void InstantiateParticle(GameObject _particle, Vector2 _pos)
-    {
-        GameObject particle = Instantiate(_particle, _pos, Quaternion.identity, parent_particle.transform);
-        float duration = particle.GetComponent<ParticleSystem>().main.duration;
-        Destroy(particle, duration);
-    }
+    
 }

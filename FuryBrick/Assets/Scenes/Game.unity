@@ -907,6 +907,7 @@ GameObject:
   - component: {fileID: 1540033327}
   - component: {fileID: 1540033328}
   - component: {fileID: 1540033329}
+  - component: {fileID: 1540033330}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -927,6 +928,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gaming: 0
   text_hint: {fileID: 1760004556}
+  rowCount: 4
 --- !u!4 &1540033325
 Transform:
   m_ObjectHideFlags: 0
@@ -1026,6 +1028,22 @@ MonoBehaviour:
   - tag: Missile
     prefab: {fileID: 1269954335219352, guid: f3fa5cd430fa32c418717b6e3154a246, type: 2}
     size: 10
+--- !u!114 &1540033330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1540033323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b0610cb5cbd2348bec75d5d21deb49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles:
+  - name: Impact_Missile
+    prefab: {fileID: 1711655998409308, guid: 289085d6b0de1c941a704fe61f6b8d42, type: 2}
+  - name: Impact_Brick
+    prefab: {fileID: 1961664204201400, guid: 0650e397f6af0f141abda177b7586054, type: 2}
 --- !u!1 &1702829806
 GameObject:
   m_ObjectHideFlags: 0

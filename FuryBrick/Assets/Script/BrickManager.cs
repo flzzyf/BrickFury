@@ -21,7 +21,8 @@ public class BrickManager : Singleton<BrickManager>
     float generateCD = 0;
     //每行的方块数据
     [HideInInspector]
-    public LinkedList<row> rows = new LinkedList<row>();
+    public Queue<row> rows = new Queue<row>();
+    Queue<GameObject[]> rowBricks = new Queue<GameObject[]>();
 
 	void Start () 
 	{
@@ -92,6 +93,7 @@ public class BrickManager : Singleton<BrickManager>
         generateInterval = brickSize.y / fallingSpeed;
     }
 
+    GameObject[] brickTemp = new GameObject[4];
     IEnumerator GenerateBrick(int _index)
     {
         float x = generateX[_index];
@@ -99,6 +101,9 @@ public class BrickManager : Singleton<BrickManager>
         //生成砖块
         GameObject brick = ObjectPoolManager.Instance().SpawnObject("Brick" , pos, Quaternion.identity);
         brick.transform.localScale = new Vector3(brickSize.x, brickSize.y);
+
+        brickTemp[_index] = brick;
+
         while(brick.transform.position.y > destoryY)
         {
             brick.transform.Translate(fallingSpeed * Vector2.down * Time.deltaTime);
@@ -111,11 +116,23 @@ public class BrickManager : Singleton<BrickManager>
     //根据数组生成方块行
     void GenerateBrickLine(row _row)
     {
-        for (int i = 0; i < _row.types.Length; i++)
+        for (int i = 0; i < GameManager.Instance().rowCount; i++)
         {
+            int rowIndex = rowBricks.Count;
             if(_row.types[i] == 1)
                 StartCoroutine(GenerateBrick(i));
+            
         }
+        //加入方块数列
+        rowBricks.Enqueue(brickTemp);
+
+        brickTemp = new GameObject[4];
+
+        //for (int i = 0; i < GameManager.Instance().rowCount; i++)
+        //{
+        //    brickTemp[i] = null;
+
+        //}
     }
 
     //随机生成三列
@@ -127,9 +144,29 @@ public class BrickManager : Singleton<BrickManager>
         line[spaceIndex] = 0;
         //行数据加入链表
         row newRow = new row(line);
-        rows.AddLast(newRow);
+        rows.Enqueue(newRow);
 
         GenerateBrickLine(newRow);
+    }
+
+    public void ClearFirstRow()
+    {
+        for (int i = 0; i < GameManager.Instance().rowCount; i++)
+        {
+            int type = rows.Peek().types[i];
+            if (type == 1)
+            {
+                GameObject go = rowBricks.Peek()[i];
+                go.SetActive(false);
+
+                ParticleManager.Instance().InstantiateParticle("Impact_Brick", go.transform.position);
+
+            }
+        }
+        rowBricks.Dequeue();
+        rows.Dequeue();
+
+        bottomY += brickSize.y;
     }
 
     public class row

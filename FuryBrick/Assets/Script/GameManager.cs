@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject text_hint;
 
+    public int rowCount = 4;
+
     void Start () 
 	{
         //Debug.Log(GetWorldScrrenSize());

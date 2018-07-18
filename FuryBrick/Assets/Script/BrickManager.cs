@@ -8,14 +8,11 @@ public class BrickManager : Singleton<BrickManager>
     public Vector2 brickSize;
     public float fallingSpeed = 0.8f;
 
-    public GameObject redLine;
-
-    float generateY;
+    [HideInInspector]
+    public float generateY;
     [HideInInspector]
     public float[] generateX;
     float destoryY;
-    [HideInInspector]
-    public float bottomY;
 
     float generateInterval;
     float generateCD = 0;
@@ -34,11 +31,6 @@ public class BrickManager : Singleton<BrickManager>
         if (!GameManager.Instance().gaming)
             return;
 
-        //降低底线
-        bottomY -= fallingSpeed * Time.deltaTime;
-
-        redLine.transform.position = new Vector2(0, bottomY + brickSize.y / 11);
-
 		if(generateCD <= 0)
         {
             generateCD = generateInterval;
@@ -51,28 +43,13 @@ public class BrickManager : Singleton<BrickManager>
         }
 	}
 
-    //显示方块所占空间
-    //private void OnDrawGizmos()
-    //{
-    //    Init();
-    //    for (int j = 0; j < 12; j++)
-    //    {
-    //        for (int i = 0; i < 4; i++)
-    //        {
-    //            brickSize.y = GameManager.GetWorldScrrenSize().y / 12;
-    //            Gizmos.DrawCube(new Vector2(generateX[i], generateY - j * (brickSize.y + 0.05f)), brickSize);
-    //        }
-    //    }
-    //}
-
     void Init()
     {
-        generateY = GameManager.GetWorldScrrenSize().y / 2 + brickSize.y / 2;
-        bottomY = generateY - brickSize.y / 2;
+        generateY = GameManager.Instance().worldScreenSize.y / 2 + brickSize.y / 2;
 
-        float cubeInterval = (GameManager.GetWorldScrrenSize().x - brickSize.x * 4) / 4;
+        float cubeInterval = (GameManager.GetWorldScreenSize().x - brickSize.x * 4) / 4;
         //左边源点
-        float x = GameManager.GetWorldScrrenSize().x / 2 * -1;
+        float x = GameManager.GetWorldScreenSize().x / 2 * -1;
         //方块1
         x += cubeInterval / 2;
         generateX = new float[4];
@@ -87,7 +64,7 @@ public class BrickManager : Singleton<BrickManager>
         }
 
         //消失高度
-        destoryY = GameManager.GetWorldScrrenSize().y / 2 * -1 - brickSize.y / 2;
+        destoryY = GameManager.GetWorldScreenSize().y / 2 * -1 - brickSize.y / 2;
 
         //生成方块时间间隔
         generateInterval = brickSize.y / fallingSpeed;
@@ -104,13 +81,14 @@ public class BrickManager : Singleton<BrickManager>
 
         brickTemp[_index] = brick;
 
-        while(brick.transform.position.y > destoryY)
+        while(GameManager.Instance().gaming && brick.transform.position.y > destoryY)
         {
             brick.transform.Translate(fallingSpeed * Vector2.down * Time.deltaTime);
             yield return null;
         }
         //清除砖块
-        brick.SetActive(false);
+        if(GameManager.Instance().gaming)
+            brick.SetActive(false);
     }
 
     //根据数组生成方块行
@@ -166,7 +144,7 @@ public class BrickManager : Singleton<BrickManager>
         rowBricks.Dequeue();
         rows.Dequeue();
 
-        bottomY += brickSize.y;
+        GameManager.Instance().ClearRow();
     }
 
     public class row

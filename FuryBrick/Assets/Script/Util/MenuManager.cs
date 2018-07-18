@@ -10,4 +10,14 @@ public class MenuManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+
+    public void Continue_Pay()
+    {
+        GameManager.Instance().GameReset();
+    }
+
+    public void Continue_AD()
+    {
+        GameManager.Instance().GameReset();
+    }
 }

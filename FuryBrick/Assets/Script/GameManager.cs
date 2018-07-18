@@ -7,14 +7,35 @@ public class GameManager : Singleton<GameManager>
 {
     [HideInInspector]
     public bool gaming = false;
+    bool readyToStart;
 
     public GameObject text_hint;
 
     public int rowCount = 4;
 
+    public GameObject redLine;
+
+    public Text text_score;
+    public Text text_coin;
+    public Text text_combo;
+
+    public GameObject panel_gameover;
+
+    int score;
+    int coin;
+    int combo;
+
+    [HideInInspector]
+    public float bottomY;
+
+    [HideInInspector]
+    public Vector2 worldScreenSize;
+
     void Start () 
 	{
-        //Debug.Log(GetWorldScrrenSize());
+        Init();
+
+        worldScreenSize = GetWorldScreenSize();
     }
 
     void Update()
@@ -27,16 +48,43 @@ public class GameManager : Singleton<GameManager>
         if (!gaming)
         {
             //游戏没开始
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && readyToStart)
             {
+                readyToStart = false;
+
                 GameStart();
             }
         }
         else
         {
             //游戏进行中
+            if(bottomY > worldScreenSize.y / 2 * -1)
+            {
+                //降低底线
+                bottomY -= BrickManager.Instance().fallingSpeed * Time.deltaTime;
+
+                redLine.transform.position = new Vector2(0, bottomY + BrickManager.Instance().brickSize.y / 11);
+            }
+            else
+            {
+                //失败
+                GameOver();
+            }
             
         }
+    }
+
+    void Init()
+    {
+        score = 0;
+        text_score.text = "0";
+
+        combo = 0;
+        text_combo.text = "0";
+
+        readyToStart = true;
+
+        bottomY = worldScreenSize.y / 2;
     }
 
     void GameStart()
@@ -52,16 +100,34 @@ public class GameManager : Singleton<GameManager>
     void GameOver()
     {
         gaming = false;
+
+        SoundManager.Instance().StopPlay("BGM");
+
+        panel_gameover.SetActive(true);
     }
 
-    void GameReset()
+    public void GameReset()
     {
+        Init();
+
         text_hint.SetActive(true);
 
+        panel_gameover.SetActive(false);
+
+        //移除现有砖块
+
+    }
+
+    public void ClearRow()
+    {
+        bottomY += BrickManager.Instance().brickSize.y;
+
+        score++;
+        text_score.text = score.ToString();
     }
 
     //获取实际游戏世界屏幕尺寸
-    public static Vector2 GetWorldScrrenSize()
+    public static Vector2 GetWorldScreenSize()
     {
         float leftBorder;
         float rightBorder;

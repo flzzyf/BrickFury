@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 111872644}
   - component: {fileID: 111872643}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Text_Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 165810415}
   - component: {fileID: 165810414}
   - component: {fileID: 165810413}
+  - component: {fileID: 165810416}
   m_Layer: 5
   m_Name: Panel_GameOver
   m_TagString: Untagged
@@ -232,9 +233,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 111872642}
+  - {fileID: 1277312751}
   - {fileID: 718545151}
   - {fileID: 1247895468}
-  - {fileID: 1277312751}
   - {fileID: 993900964}
   m_Father: {fileID: 1764109482}
   m_RootOrder: 7
@@ -292,6 +293,24 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 165810411}
   m_CullTransparentMesh: 0
+--- !u!95 &165810416
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 165810411}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d5d7d2cac0719a64c963a3bfa64daa3e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &193945730
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +753,7 @@ GameObject:
   - component: {fileID: 718545153}
   - component: {fileID: 718545152}
   m_Layer: 5
-  m_Name: Button_Setting
+  m_Name: Button_Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -752,7 +771,7 @@ RectTransform:
   m_Children:
   - {fileID: 344331451}
   m_Father: {fileID: 165810412}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -811,7 +830,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 718545154}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1540033331}
+        m_MethodName: Continue_Pay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &718545154
@@ -1288,7 +1318,7 @@ GameObject:
   - component: {fileID: 993900966}
   - component: {fileID: 993900965}
   m_Layer: 5
-  m_Name: Button_Setting (2)
+  m_Name: Button_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1505,7 +1535,7 @@ GameObject:
   - component: {fileID: 1247895470}
   - component: {fileID: 1247895469}
   m_Layer: 5
-  m_Name: Button_Setting (1)
+  m_Name: Button_AD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1523,7 +1553,7 @@ RectTransform:
   m_Children:
   - {fileID: 1866710943}
   m_Father: {fileID: 165810412}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1582,7 +1612,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1247895471}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1540033331}
+        m_MethodName: Continue_AD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1247895471
@@ -1631,7 +1672,7 @@ GameObject:
   - component: {fileID: 1277312753}
   - component: {fileID: 1277312752}
   m_Layer: 5
-  m_Name: Text (1)
+  m_Name: Text_Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1648,7 +1689,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 165810412}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1723,6 +1764,7 @@ GameObject:
   - component: {fileID: 1540033328}
   - component: {fileID: 1540033329}
   - component: {fileID: 1540033330}
+  - component: {fileID: 1540033331}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1744,6 +1786,13 @@ MonoBehaviour:
   gaming: 0
   text_hint: {fileID: 1760004556}
   rowCount: 4
+  redLine: {fileID: 899757104}
+  text_score: {fileID: 1702829810}
+  text_coin: {fileID: 921730334}
+  text_combo: {fileID: 1079630099}
+  panel_gameover: {fileID: 165810411}
+  bottomY: 0
+  worldScreenSize: {x: 0, y: 0}
 --- !u!4 &1540033325
 Transform:
   m_ObjectHideFlags: 0
@@ -1772,9 +1821,7 @@ MonoBehaviour:
     type: 2}
   brickSize: {x: 1.2, y: 0.8333333}
   fallingSpeed: 1.3
-  redLine: {fileID: 899757104}
   generateX: []
-  bottomY: 0
 --- !u!114 &1540033327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1809,19 +1856,19 @@ MonoBehaviour:
   sounds:
   - name: Shoot
     clip: {fileID: 8300000, guid: e027baa1ec0cebf4eb1c027702e89320, type: 3}
-    volume: 0.522
+    volume: 0.454
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Boom
     clip: {fileID: 8300000, guid: ae9c064cca871fa48ae6946a724280f4, type: 3}
-    volume: 0.514
+    volume: 0.47
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: BGM
     clip: {fileID: 8300000, guid: 6d05728e57e593847b4b59020d034c86, type: 3}
-    volume: 0.37
+    volume: 0.402
     pitch: 1
     loop: 1
     source: {fileID: 0}
@@ -1859,6 +1906,17 @@ MonoBehaviour:
     prefab: {fileID: 1711655998409308, guid: 289085d6b0de1c941a704fe61f6b8d42, type: 2}
   - name: Impact_Brick
     prefab: {fileID: 1961664204201400, guid: 0650e397f6af0f141abda177b7586054, type: 2}
+--- !u!114 &1540033331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1540033323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c81896dca3470b14f8b73fd70522ca89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1702829806
 GameObject:
   m_ObjectHideFlags: 0

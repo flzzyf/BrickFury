@@ -71,12 +71,13 @@ public class BrickManager : Singleton<BrickManager>
     }
 
     GameObject[] brickTemp = new GameObject[4];
-    IEnumerator GenerateBrick(int _index)
+    //生成砖块并下落
+    IEnumerator GenerateBrick(int _index, int _type)
     {
         float x = generateX[_index];
         Vector2 pos = new Vector2(x, generateY);
         //生成砖块
-        GameObject brick = ObjectPoolManager.Instance().SpawnObject("Brick" , pos, Quaternion.identity);
+        GameObject brick = ObjectPoolManager.Instance().SpawnObject(_type , pos, Quaternion.identity);
         brick.transform.localScale = new Vector3(brickSize.x, brickSize.y);
 
         brickTemp[_index] = brick;
@@ -97,8 +98,9 @@ public class BrickManager : Singleton<BrickManager>
         for (int i = 0; i < GameManager.Instance().rowCount; i++)
         {
             int rowIndex = rowBricks.Count;
-            if(_row.types[i] == 1)
-                StartCoroutine(GenerateBrick(i));
+            //非空砖块
+            if(_row.types[i] > 0)
+                StartCoroutine(GenerateBrick(i, _row.types[i]));
             
         }
         //加入方块数列
@@ -119,6 +121,15 @@ public class BrickManager : Singleton<BrickManager>
     {
         int spaceIndex = Random.Range(0, 4);
         int[] line = { 1, 1, 1, 1 };
+
+        //随机金币行
+        if(zyf.IfItWins(6))
+        {
+            int index = Random.Range(0, 4);
+            line[index] = 2;
+        }
+
+        //空行
         line[spaceIndex] = 0;
         //行数据加入链表
         row newRow = new row(line);
@@ -132,12 +143,18 @@ public class BrickManager : Singleton<BrickManager>
         for (int i = 0; i < GameManager.Instance().rowCount; i++)
         {
             int type = rows.Peek().types[i];
-            if (type == 1)
+            if (type > 0)
             {
                 GameObject go = rowBricks.Peek()[i];
                 go.SetActive(false);
 
                 ParticleManager.Instance().InstantiateParticle("Impact_Brick", go.transform.position);
+
+                //金币块
+                if(type == 2)
+                {
+                    GameManager.Instance().ModifyCoin(1);
+                }
 
             }
         }

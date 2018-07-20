@@ -32,4 +32,10 @@ public class zyf
 
         return new Vector2(width, height);
     }
+
+    //a分之一概率事件
+    public static bool IfItWins(int _a)
+    {
+        return Random.Range(1, _a) == 1;
+    }
 }

@@ -31,6 +31,9 @@ public class GameManager : Singleton<GameManager>
     void Start () 
 	{
         Init();
+
+        int coin = PlayerPrefs.GetInt("BrickFury_Coin");
+        SetCoin(coin);
     }
 
     void Update()
@@ -59,6 +62,7 @@ public class GameManager : Singleton<GameManager>
                 bottomY -= BrickManager.Instance().fallingSpeed * Time.deltaTime;
 
                 redLine.transform.position = new Vector2(0, bottomY + BrickManager.Instance().brickSize.y / 11);
+                //redLine.GetComponent<RectTransform>().position = Camera.main.WorldToScreenPoint(new Vector2(0, bottomY + BrickManager.Instance().brickSize.y / 11));
             }
             else
             {
@@ -119,6 +123,17 @@ public class GameManager : Singleton<GameManager>
 
         score++;
         text_score.text = score.ToString();
+    }
+
+    public void SetCoin(int _amount)
+    {
+        PlayerPrefs.SetInt("BrickFury_Coin", _amount);
+        text_coin.text = _amount.ToString();
+    }
+
+    public void ModifyCoin(int _amount)
+    {
+        SetCoin(PlayerPrefs.GetInt("BrickFury_Coin") + _amount);
     }
 
 }

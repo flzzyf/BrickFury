@@ -65,6 +65,12 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         return obj;
     }
 
+    public GameObject SpawnObject(int _type, Vector3 _pos, Quaternion _rot)
+    {
+        return SpawnObject(pools[_type].tag, _pos, _rot);
+    }
+
+
     public void PutbackObject(GameObject _obj)
     {
         _obj.SetActive(false);

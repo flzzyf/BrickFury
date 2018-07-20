@@ -45,11 +45,11 @@ public class BrickManager : Singleton<BrickManager>
 
     void Init()
     {
-        generateY = GameManager.Instance().worldScreenSize.y / 2 + brickSize.y / 2;
+        generateY = zyf.GetWorldScreenSize().y / 2 + brickSize.y / 2;
 
-        float cubeInterval = (GameManager.GetWorldScreenSize().x - brickSize.x * 4) / 4;
+        float cubeInterval = (zyf.GetWorldScreenSize().x - brickSize.x * 4) / 4;
         //左边源点
-        float x = GameManager.GetWorldScreenSize().x / 2 * -1;
+        float x = zyf.GetWorldScreenSize().x / 2 * -1;
         //方块1
         x += cubeInterval / 2;
         generateX = new float[4];
@@ -64,7 +64,7 @@ public class BrickManager : Singleton<BrickManager>
         }
 
         //消失高度
-        destoryY = GameManager.GetWorldScreenSize().y / 2 * -1 - brickSize.y / 2;
+        destoryY = zyf.GetWorldScreenSize().y / 2 * -1 - brickSize.y / 2;
 
         //生成方块时间间隔
         generateInterval = brickSize.y / fallingSpeed;

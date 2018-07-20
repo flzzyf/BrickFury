@@ -37,7 +37,7 @@ public class ShootManager : Singleton<ShootManager>
     IEnumerator IEShoot(int _index)
     {
         //创建飞弹
-        float launchY = GameManager.GetWorldScreenSize().y / 2 * -1 - 1;
+        float launchY = zyf.GetWorldScreenSize().y / 2 * -1 - 1;
         Vector2 launchPos = new Vector2(BrickManager.Instance().generateX[_index], launchY);
 
         GameObject missile = ObjectPoolManager.Instance().SpawnObject("Missile", launchPos, Quaternion.identity);

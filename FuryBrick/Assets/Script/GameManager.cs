@@ -28,14 +28,9 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector]
     public float bottomY;
 
-    [HideInInspector]
-    public Vector2 worldScreenSize;
-
     void Start () 
 	{
         Init();
-
-        worldScreenSize = GetWorldScreenSize();
     }
 
     void Update()
@@ -58,7 +53,7 @@ public class GameManager : Singleton<GameManager>
         else
         {
             //游戏进行中
-            if(bottomY > worldScreenSize.y / 2 * -1)
+            if(bottomY > zyf.GetWorldScreenSize().y / 2 * -1)
             {
                 //降低底线
                 bottomY -= BrickManager.Instance().fallingSpeed * Time.deltaTime;
@@ -84,7 +79,7 @@ public class GameManager : Singleton<GameManager>
 
         readyToStart = true;
 
-        bottomY = worldScreenSize.y / 2;
+        bottomY = zyf.GetWorldScreenSize().y / 2;
     }
 
     void GameStart()
@@ -126,24 +121,4 @@ public class GameManager : Singleton<GameManager>
         text_score.text = score.ToString();
     }
 
-    //获取实际游戏世界屏幕尺寸
-    public static Vector2 GetWorldScreenSize()
-    {
-        float leftBorder;
-        float rightBorder;
-        float topBorder;
-        float downBorder;
-        //the up right corner
-        Vector3 cornerPos = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, Mathf.Abs(Camera.main.transform.position.z)));
-
-        leftBorder = Camera.main.transform.position.x - (cornerPos.x - Camera.main.transform.position.x);
-        rightBorder = cornerPos.x;
-        topBorder = cornerPos.y;
-        downBorder = Camera.main.transform.position.y - (cornerPos.y - Camera.main.transform.position.y);
-
-        float width = rightBorder - leftBorder;
-        float height = topBorder - downBorder;
-
-        return new Vector2(width, height);
-    }
 }
